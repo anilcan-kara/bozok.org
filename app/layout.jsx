@@ -7,7 +7,7 @@ import "./globals.css";
 
 export const metadata = {
     metadataBase: new URL("https://bozok.org"),
-    title: "Bozok University Chatbot Template",
+    title: "Bozok University Chatbot",
     description: "Bozok University Chatbot.",
 };
 

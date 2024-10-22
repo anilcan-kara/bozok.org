@@ -19,8 +19,7 @@ export const Overview = () => {
                     <MessageIcon />
                 </p>
                 <p>
-                    This is an open source Chatbot template built from Anilcan Kara with the AI
-                    SDK by Vercel. It uses the{" "}
+                    This is Bozok University Chatbot built from Anilcan Kara. It uses the{" "}
                     <code className="rounded-md bg-muted px-1 py-0.5">streamText</code>{" "}
                     function in the server and the{" "}
                     <code className="rounded-md bg-muted px-1 py-0.5">useChat</code> hook
