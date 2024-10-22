@@ -1,10 +1,7 @@
 import Link from "next/link";
-
 import { auth, signOut } from "@/app/(auth)/auth";
-
 import { History } from "./history";
 import { ThemeToggle } from "./theme-toggle";
-
 import { Button } from "../ui/button";
 import {
     DropdownMenu,
