@@ -13,7 +13,7 @@ export const metadata = {
 
 export default async function RootLayout({ children, }) {
     return (
-        <html lang="tr">
+        <html lang="tr" className="light" style={{ colorScheme: 'light' }} >
             <body className="antialiased">
                 <ThemeProvider
                     attribute="class"
