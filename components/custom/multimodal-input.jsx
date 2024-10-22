@@ -39,7 +39,7 @@ export function MultimodalInput({
     append,
     handleSubmit,
 }) {
-    const textareaRef = useRef < HTMLTextAreaElement > (null);
+    const textareaRef = useRef(null);
     const { width } = useWindowSize();
 
     useEffect(() => {
