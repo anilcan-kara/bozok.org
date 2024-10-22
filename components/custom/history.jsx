@@ -11,6 +11,13 @@ import useSWR from "swr";
 import { fetcher, getTitleFromChat } from "@/lib/utils";
 
 import {
+    InfoIcon,
+    MenuIcon,
+    MoreHorizontalIcon,
+    PencilEditIcon,
+    TrashIcon,
+} from "./icons";
+import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -34,13 +41,6 @@ import {
     SheetHeader,
     SheetTitle,
 } from "../ui/sheet";
-import {
-    InfoIcon,
-    MenuIcon,
-    MoreHorizontalIcon,
-    PencilEditIcon,
-    TrashIcon,
-} from "./icons";
 
 export const History = ({ user }) => {
     const { id } = useParams();
