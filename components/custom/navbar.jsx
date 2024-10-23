@@ -44,7 +44,7 @@ export const Navbar = async () => {
                                 }}
                             >
                                 <button type="submit" className="w-full text-left px-1 py-0.5 text-red-500">
-                                    Sign out
+                                    Çıkış Yap
                                 </button>
                             </form>
                         </DropdownMenuItem>
@@ -52,7 +52,7 @@ export const Navbar = async () => {
                 </DropdownMenu>
             ) : (
                 <Button className="py-1.5 px-2 h-fit font-normal" asChild>
-                    <Link href="/login">Login</Link>
+                    <Link href="/login">Giriş Yap</Link>
                 </Button>
             )}
         </div>

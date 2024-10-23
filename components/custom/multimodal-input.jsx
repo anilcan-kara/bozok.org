@@ -1,44 +1,29 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import {
-    useCallback,
-    useEffect,
-    useRef,
-    useState
-} from "react";
-import { toast } from "sonner";
+import { motion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 
-import { ArrowUpIcon, PaperclipIcon, StopIcon } from "./icons";
-import { PreviewAttachment } from "./preview-attachment";
-import useWindowSize from "./use-window-size";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
+import { ArrowUpIcon, PaperclipIcon, StopIcon } from './icons';
+import { PreviewAttachment } from './preview-attachment';
+import useWindowSize from './use-window-size';
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
 
 const suggestedActions = [
     {
-        title: "What is the weather",
-        label: "in San Francisco?",
-        action: "What is the weather in San Francisco?",
+        title: 'Hava durumu nedir',
+        label: "Yozgat'ta?",
+        action: "Yozgat'ta hava durumu nedir?",
     },
     {
-        title: "Answer like I'm 5,",
-        label: "why is the sky blue?",
-        action: "Answer like I'm 5, why is the sky blue?",
+        title: 'Mühendislik Fakültesi öğrencisiymişim gibi cevapla,',
+        label: 'neden gökyüzü mavi?',
+        action: 'Mühendislik Fakültesi öğrencisiymişim gibi cevapla, neden gökyüzü mavi?',
     },
 ];
 
-export function MultimodalInput({
-    input,
-    setInput,
-    isLoading,
-    stop,
-    attachments,
-    setAttachments,
-    messages,
-    append,
-    handleSubmit,
-}) {
+export function MultimodalInput({ input, setInput, isLoading, stop, attachments, setAttachments, messages, append, handleSubmit }) {
     const textareaRef = useRef(null);
     const { width } = useWindowSize();
 
@@ -50,7 +35,7 @@ export function MultimodalInput({
 
     const adjustHeight = () => {
         if (textareaRef.current) {
-            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = 'auto';
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight + 2}px`;
         }
     };
@@ -77,11 +62,11 @@ export function MultimodalInput({
 
     const uploadFile = async (file) => {
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append('file', file);
 
         try {
             const response = await fetch(`/api/files/upload`, {
-                method: "POST",
+                method: 'POST',
                 body: formData,
             });
 
@@ -99,7 +84,7 @@ export function MultimodalInput({
                 toast.error(error);
             }
         } catch (error) {
-            toast.error("Failed to upload file, please try again!");
+            toast.error('Dosya yüklenemedi, lütfen tekrar deneyin!');
         }
     };
 
@@ -112,56 +97,47 @@ export function MultimodalInput({
             try {
                 const uploadPromises = files.map((file) => uploadFile(file));
                 const uploadedAttachments = await Promise.all(uploadPromises);
-                const successfullyUploadedAttachments = uploadedAttachments.filter(
-                    (attachment) => attachment !== undefined,
-                );
+                const successfullyUploadedAttachments = uploadedAttachments.filter((attachment) => attachment !== undefined);
 
-                setAttachments((currentAttachments) => [
-                    ...currentAttachments,
-                    ...successfullyUploadedAttachments,
-                ]);
+                setAttachments((currentAttachments) => [...currentAttachments, ...successfullyUploadedAttachments]);
             } catch (error) {
-                console.error("Error uploading files!", error);
+                console.error('Dosyalar yüklenirken hata oluştu!', error);
             } finally {
                 setUploadQueue([]);
             }
         },
-        [setAttachments],
+        [setAttachments]
     );
 
     return (
         <div className="relative w-full flex flex-col gap-4">
-            {messages.length === 0 &&
-                attachments.length === 0 &&
-                uploadQueue.length === 0 && (
-                    <div className="grid sm:grid-cols-2 gap-2 w-full md:px-0 mx-auto md:max-w-[500px]">
-                        {suggestedActions.map((suggestedAction, index) => (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                transition={{ delay: 0.05 * index }}
-                                key={index}
-                                className={index > 1 ? "hidden sm:block" : "block"}
+            {messages.length === 0 && attachments.length === 0 && uploadQueue.length === 0 && (
+                <div className="grid sm:grid-cols-2 gap-2 w-full md:px-0 mx-auto md:max-w-[500px]">
+                    {suggestedActions.map((suggestedAction, index) => (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            transition={{ delay: 0.05 * index }}
+                            key={index}
+                            className={index > 1 ? 'hidden sm:block' : 'block'}
+                        >
+                            <button
+                                onClick={async () => {
+                                    append({
+                                        role: 'user',
+                                        content: suggestedAction.action,
+                                    });
+                                }}
+                                className="w-full text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors flex flex-col"
                             >
-                                <button
-                                    onClick={async () => {
-                                        append({
-                                            role: "user",
-                                            content: suggestedAction.action,
-                                        });
-                                    }}
-                                    className="w-full text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors flex flex-col"
-                                >
-                                    <span className="font-medium">{suggestedAction.title}</span>
-                                    <span className="text-zinc-500 dark:text-zinc-400">
-                                        {suggestedAction.label}
-                                    </span>
-                                </button>
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
+                                <span className="font-medium">{suggestedAction.title}</span>
+                                <span className="text-zinc-500 dark:text-zinc-400">{suggestedAction.label}</span>
+                            </button>
+                        </motion.div>
+                    ))}
+                </div>
+            )}
 
             <input
                 type="file"
@@ -182,9 +158,9 @@ export function MultimodalInput({
                         <PreviewAttachment
                             key={filename}
                             attachment={{
-                                url: "",
+                                url: '',
                                 name: filename,
-                                contentType: "",
+                                contentType: '',
                             }}
                             isUploading={true}
                         />
@@ -194,17 +170,17 @@ export function MultimodalInput({
 
             <Textarea
                 ref={textareaRef}
-                placeholder="Send a message..."
+                placeholder="Bir mesaj gönder..."
                 value={input}
                 onChange={handleInput}
                 className="min-h-[24px] overflow-hidden resize-none rounded-lg text-base bg-muted"
                 rows={3}
                 onKeyDown={(event) => {
-                    if (event.key === "Enter" && !event.shiftKey) {
+                    if (event.key === 'Enter' && !event.shiftKey) {
                         event.preventDefault();
 
                         if (isLoading) {
-                            toast.error("Please wait for the model to finish its response!");
+                            toast.error('Lütfen modelin yanıtını bitirmesini bekleyin!');
                         } else {
                             submitForm();
                         }
