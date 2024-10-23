@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
 import { MessageIcon } from './icons';
+import Link from 'next/link';
 
 export const Overview = () => {
     return (
@@ -23,7 +24,10 @@ export const Overview = () => {
                 </p> */}
 
                 <p>
-                    Bozok.org <code className="rounded-md bg-muted px-1 py-0.5">Bozok Üniversitesi Yapay Zekâ Destekli Kurumsal İş Asistanı</code>{' '}
+                    Bozok.org{' '}
+                    <code className="rounded-md bg-muted/50 px-1 py-0.5 text-rose-950/85 font-medium">
+                        Bozok Üniversitesi Yapay Zekâ Destekli Kurumsal İş Asistanı
+                    </code>{' '}
                     projesinde, üniversite öğrencilerinin bilgi taleplerini karşılamak ve ihtiyaç duydukları bilgilere hızlı erişim sağlamak amacıyla
                     mobil uyumlu ve yapay zekâ destekli bir sohbet asistanı geliştirmeyi hedeflemektedir. Proje kapsamında, üniversiteye ait
                     yönetmelikler, mevzuatlar ve resmî belgeler dijital ortama aktarılacak ve bu belgelerdeki bilgiler üzerinden öğrenci soruları
@@ -36,7 +40,18 @@ export const Overview = () => {
                 <p>
                     Bu proje <strong>TÜBİTAK–2209-A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI</strong> kapsamında{' '}
                     <span className="italic whitespace-nowrap">Bozok Üniversitesi Bilgisayar Mühendisliği</span> öğrencisi{' '}
-                    <strong>Anılcan Kara</strong> tarafından <strong>Dr. Çağrı Arısoy</strong> danışmanlığında oluşturulmuştur.
+                    <Link className="text-blue-950/75 hover:underline font-semibold" href="https://www.linkedin.com/in/anilcan-kara/" target="_blank">
+                        Anılcan Kara
+                    </Link>{' '}
+                    tarafından{' '}
+                    <Link
+                        className="text-blue-950/75 hover:underline font-semibold"
+                        href="https://akademik.yok.gov.tr/AkademikArama/AkademisyenGorevOgrenimBilgileri?islem=direct&authorId=4F6E5444F0EB180F"
+                        target="_blank"
+                    >
+                        Dr. Çağrı Arısoy
+                    </Link>{' '}
+                    danışmanlığında oluşturulmuştur.
                 </p>
             </div>
         </motion.div>
