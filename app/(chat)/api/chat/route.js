@@ -11,7 +11,7 @@ export async function POST(request) {
     const session = await auth();
 
     if (!session) {
-        return new Response("Unauthorized", { status: 401 });
+        return new Response("Yetkisiz", { status: 401 });
     }
 
     const coreMessages = convertToCoreMessages(messages);
@@ -19,17 +19,18 @@ export async function POST(request) {
     const result = await streamText({
         model: customModel,
         system:
-            "you are a friendly assistant! keep your responses concise and helpful.",
+            "Sen dost canlısı bir asistansın! Yanıtlarını faydalı tut. Bozok Üniversitesi öğrencilerinin öğrenci işlerine sorabilecekleri tarzda sorulara mevzuat ve yönetmelikler dahilinde sen cevap vereceksin. Yozgat iline dair genel bilgilere ve belediyecilik hizmetlerine daire güncel bilgiler ve gerekirse linkler vermelisin. Çok zorda kalmadıkça bir yere başvurması konusunda yönlendirme ve bütün konuyu sen halletmeye çalış. Tam olarak anlamazsan sana sorabileceği sıradaki soru için yönlendirmede bulun. Matematik işlemler için plain text kullan. Matematik işlemler için LaTeX kullanma!",
         messages: coreMessages,
         maxSteps: 5,
         tools: {
             getWeather: {
-                description: "Get the current weather at a location",
+                description: "Bir konumdaki mevcut hava durumunu al",
                 parameters: z.object({
                     latitude: z.number(),
                     longitude: z.number(),
                 }),
                 execute: async ({ latitude, longitude }) => {
+                    // Yozgat: 39.822060 34.808132
                     const response = await fetch(
                         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`,
                     );
@@ -48,7 +49,7 @@ export async function POST(request) {
                         userId: session.user.id,
                     });
                 } catch (error) {
-                    console.error("Failed to save chat");
+                    console.error("Sohbet kaydedilemedi");
                 }
             }
         },
@@ -66,27 +67,27 @@ export async function DELETE(request) {
     const id = searchParams.get("id");
 
     if (!id) {
-        return new Response("Not Found", { status: 404 });
+        return new Response("Bulunamadı", { status: 404 });
     }
 
     const session = await auth();
 
     if (!session || !session.user) {
-        return new Response("Unauthorized", { status: 401 });
+        return new Response("Yetkisiz işlem", { status: 401 });
     }
 
     try {
         const chat = await getChatById({ id });
 
         if (chat.userId !== session.user.id) {
-            return new Response("Unauthorized", { status: 401 });
+            return new Response("Yetkisiz işlem", { status: 401 });
         }
 
         await deleteChatById({ id });
 
-        return new Response("Chat deleted", { status: 200 });
+        return new Response("Sohbet silindi", { status: 200 });
     } catch (error) {
-        return new Response("An error occurred while processing your request", {
+        return new Response("İsteğinizi işlerken bir hata oluştu", {
             status: 500,
         });
     }
