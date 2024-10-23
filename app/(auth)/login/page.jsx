@@ -18,9 +18,9 @@ export default function Page() {
 
     useEffect(() => {
         if (state.status === 'failed') {
-            toast.error('Invalid credentials!');
+            toast.error('Geçersiz kimlik bilgileri!');
         } else if (state.status === 'invalid_data') {
-            toast.error('Failed validating your submission!');
+            toast.error('Gönderiminizi doğrularken hata oluştu!');
         } else if (state.status === 'success') {
             router.refresh();
         }
