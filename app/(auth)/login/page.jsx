@@ -32,11 +32,11 @@ export default function Page() {
     };
 
     return (
-        <div className="flex h-screen w-screen items-center justify-center bg-background">
+        <div className="flex flex-col gap-8 md:flex-row md:gap-0 h-full md:h-screen w-screen items-center justify-center bg-background overflow-y-scroll md:overflow-hidden">
             <Overview />
 
-            <div className="w-full max-w-md overflow-hidden rounded-2xl flex flex-col gap-12">
-                <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
+            <div className="w-full min-w-96 max-w-md overflow-hidden rounded-2xl flex flex-col gap-12 min-h-min pb-16 md:pb-0">
+                <div className="flex flex-col items-center justify-center gap-2 px-4 text-center md:px-16">
                     <h3 className="text-xl font-semibold dark:text-zinc-50">Giriş Yap</h3>
                     <p className="text-sm text-gray-500 dark:text-zinc-400">Giriş yapmak için e-posta ve şifrenizi kullanın</p>
                 </div>
