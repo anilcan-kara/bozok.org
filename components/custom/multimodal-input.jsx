@@ -12,14 +12,14 @@ import { Textarea } from '../ui/textarea';
 
 const suggestedActions = [
     {
-        title: 'Hava durumu nedir',
-        label: "Yozgat'ta?",
+        title: "Yozgat'ta",
+        label: "Hava durumu nedir?",
         action: "Yozgat'ta hava durumu nedir?",
     },
     {
-        title: 'Mühendislik Fakültesi öğrencisiymişim gibi cevapla,',
+        title: 'MMF öğrencine açıkla,',
         label: 'neden gökyüzü mavi?',
-        action: 'Mühendislik Fakültesi öğrencisiymişim gibi cevapla, neden gökyüzü mavi?',
+        action: 'Mühendislik Fakültesi öğrencisiymişim gibi detaylı açıkla, neden gökyüzü mavi?',
     },
 ];
 

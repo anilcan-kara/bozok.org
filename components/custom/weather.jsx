@@ -88,7 +88,7 @@ export function Weather({
                     </div>
                 </div>
 
-                <div className="text-blue-50">{`En Yüksek: ${n(currentHigh)}°, En Düşük: ${n(currentLow)}°`}</div>
+                <div className="text-blue-50">{`Yüksek ${n(currentHigh)}°, Düşük ${n(currentLow)}°`}</div>
             </div>
 
             <div className="flex flex-row justify-between">
