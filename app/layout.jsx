@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Toaster } from 'sonner';
 
 import { Navbar } from '@/components/custom/navbar';
@@ -9,6 +10,14 @@ export const metadata = {
     metadataBase: new URL('https://bozok.org'),
     title: 'YZ İş Asistanı - Bozok Üniversitesi',
     description: 'YZ İş Asistanı - Bozok Üniversitesi',
+};
+
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: 'cover',
 };
 
 export default async function RootLayout({ children }) {
@@ -24,3 +33,7 @@ export default async function RootLayout({ children }) {
         </html>
     );
 }
+
+RootLayout.propTypes = {
+    children: PropTypes.node.isRequired,
+};
