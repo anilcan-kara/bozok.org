@@ -38,27 +38,11 @@ export const Overview = () => {
                 </p>
 
                 <p>
-                    Bu proje{' '}
-                    <Link
-                        className="text-blue-950/75 hover:underline font-semibold"
-                        href="https://sayzek.org.tr/haber/sayzek-atp-2024-2025"
-                        target="_blank"
-                    >
-                        SAVUNMA SANAYİİ BAŞKANLIĞI - SAYZEK - ATP 2024-2025
-                    </Link>{' '}
-                    kapsamında <span className="italic whitespace-nowrap">Bozok Üniversitesi Bilgisayar Mühendisliği</span> öğrencisi{' '}
+                    Bu proje <span className="italic whitespace-nowrap">Bozok Üniversitesi Bilgisayar Mühendisliği</span> öğrencisi{' '}
                     <Link className="text-blue-950/75 hover:underline font-semibold" href="https://www.linkedin.com/in/anilcan-kara/" target="_blank">
                         Anılcan Kara
                     </Link>{' '}
-                    tarafından{' '}
-                    <Link
-                        className="text-blue-950/75 hover:underline font-semibold"
-                        href="https://akademik.yok.gov.tr/AkademikArama/AkademisyenGorevOgrenimBilgileri?islem=direct&authorId=4F6E5444F0EB180F"
-                        target="_blank"
-                    >
-                        Dr. Çağrı Arısoy
-                    </Link>{' '}
-                    danışmanlığında oluşturulmuştur.
+                    tarafından oluşturulmuştur.
                 </p>
             </div>
         </motion.div>
