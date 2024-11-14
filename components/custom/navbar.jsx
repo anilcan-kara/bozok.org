@@ -15,7 +15,8 @@ export const Navbar = async () => {
             <div className="flex flex-row gap-3 items-center">
                 <History user={session?.user} />
                 <div className="flex flex-row gap-2 items-center">
-                    <div className="text-sm dark:text-zinc-300">Bozok Üniversitesi Yapay Zekâ Destekli Kurumsal İş Asistanı</div>
+                    <div className="sm:hidden text-sm dark:text-zinc-300">Bozok AI</div>
+                    <div className="hidden sm:block text-sm dark:text-zinc-300">Bozok Üniversitesi Yapay Zekâ Destekli Kurumsal İş Asistanı</div>
                 </div>
             </div>
 
