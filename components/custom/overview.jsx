@@ -25,7 +25,7 @@ export const Overview = () => {
 
                 <p>
                     Bozok.org{' '}
-                    <code className="rounded-md bg-muted/50 px-1 py-0.5 text-rose-950/85 font-medium">
+                    <code className="rounded-md bg-muted/50 px-1 py-0.5 text-rose-950/85 dark:text-rose-100 font-medium">
                         Bozok Üniversitesi Yapay Zekâ Destekli Kurumsal İş Asistanı
                     </code>{' '}
                     projesinde, üniversite öğrencilerinin bilgi taleplerini karşılamak ve ihtiyaç duydukları bilgilere hızlı erişim sağlamak amacıyla
@@ -39,7 +39,11 @@ export const Overview = () => {
 
                 <p>
                     Bu proje <span className="italic whitespace-nowrap">Bozok Üniversitesi Bilgisayar Mühendisliği</span> öğrencisi{' '}
-                    <Link className="text-blue-950/75 hover:underline font-semibold" href="https://www.linkedin.com/in/anilcan-kara/" target="_blank">
+                    <Link
+                        className="text-blue-950/75 dark:text-blue-100 hover:underline font-semibold"
+                        href="https://www.linkedin.com/in/anilcan-kara/"
+                        target="_blank"
+                    >
                         Anılcan Kara
                     </Link>{' '}
                     tarafından oluşturulmuştur.
