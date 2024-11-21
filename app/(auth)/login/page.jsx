@@ -1,8 +1,9 @@
 'use client';
 
+import { useReCaptcha } from 'next-recaptcha-v3';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import { AuthForm } from '@/components/custom/auth-form';
@@ -15,6 +16,29 @@ export default function Page() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [state, formAction] = useActionState(login, { status: 'idle' });
+    const { executeRecaptcha } = useReCaptcha();
+
+    const handleSubmit = useCallback(async (e) => {
+        const form = e.target
+
+        let input = form.querySelector('input[name="recaptcha"]');
+        if (input?.value) return;
+
+        e.preventDefault();
+
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'recaptcha';
+        input.value = await executeRecaptcha("form_submit");
+
+        form.appendChild(input);
+        form.requestSubmit();
+    }, [executeRecaptcha]);
+
+    const handleAction = (formData) => {
+        setEmail(formData.get('email'));
+        formAction(formData);
+    }
 
     useEffect(() => {
         if (state.status === 'failed') {
@@ -26,11 +50,6 @@ export default function Page() {
         }
     }, [state.status, router]);
 
-    const handleSubmit = (formData) => {
-        setEmail(formData.get('email'));
-        formAction(formData);
-    };
-
     return (
         <div className="flex flex-col gap-8 md:flex-row md:gap-0 h-full md:h-screen w-screen items-center justify-center bg-background overflow-y-scroll md:overflow-hidden">
             <Overview />
@@ -41,8 +60,9 @@ export default function Page() {
                     <p className="text-sm text-gray-500 dark:text-zinc-400">Giriş yapmak için e-posta ve şifrenizi kullanın</p>
                 </div>
 
-                <AuthForm action={handleSubmit} defaultEmail={email}>
+                <AuthForm action={handleAction} onSubmit={handleSubmit} defaultEmail={email}>
                     <SubmitButton>Giriş yap</SubmitButton>
+
                     <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
                         {'Hesabınız yok mu? '}
 
