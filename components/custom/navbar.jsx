@@ -1,11 +1,12 @@
 import Link from 'next/link';
 
-import { auth, signOut } from '@/app/(auth)/auth';
+import { auth } from '@/app/(auth)/auth';
 
-import { History } from './history';
-import { ThemeToggle } from './theme-toggle';
 import { Button } from '../ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { History } from './history';
+import SignOutButton from './sign-out-button';
+import { ThemeToggle } from './theme-toggle';
 
 export const Navbar = async () => {
     let session = await auth();
@@ -21,36 +22,23 @@ export const Navbar = async () => {
             </div>
 
             {session ? (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button className="py-1.5 px-2 h-fit font-normal" variant="secondary">
-                            {session.user?.email}
-                        </Button>
-                    </DropdownMenuTrigger>
+                <div className='flex gap-2 justify-center items-center'>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button className="py-1.5 px-2 h-fit font-normal" variant="secondary">
+                                {session.user?.email}
+                            </Button>
+                        </DropdownMenuTrigger>
 
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                            <ThemeToggle />
-                        </DropdownMenuItem>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem>
+                                <ThemeToggle />
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
 
-                        <DropdownMenuItem className="p-1 z-50">
-                            <form
-                                className="w-full"
-                                action={async () => {
-                                    'use server';
-
-                                    await signOut({
-                                        redirectTo: '/',
-                                    });
-                                }}
-                            >
-                                <button type="submit" className="w-full text-left px-1 py-0.5 text-red-500">
-                                    Çıkış Yap
-                                </button>
-                            </form>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                    <SignOutButton />
+                </div>
             ) : (
                 <Button className="py-1.5 px-2 h-fit font-normal" asChild>
                     <Link href="/login">Giriş Yap</Link>
