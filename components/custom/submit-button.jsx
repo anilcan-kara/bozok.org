@@ -13,7 +13,7 @@ export function SubmitButton({ children }) {
         <Button
             type={pending ? "button" : "submit"}
             aria-disabled={pending}
-            className="relative"
+            className="relative cursor-pointer"
         >
 
             {children}

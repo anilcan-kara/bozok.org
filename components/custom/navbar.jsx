@@ -40,7 +40,7 @@ export const Navbar = async () => {
                     <SignOutButton />
                 </div>
             ) : (
-                <Button className="py-1.5 px-2 h-fit font-normal" asChild>
+                <Button className="py-1.5 px-2 h-fit font-normal cursor-pointer" asChild>
                     <Link href="/login">Giriş Yap</Link>
                 </Button>
             )}
