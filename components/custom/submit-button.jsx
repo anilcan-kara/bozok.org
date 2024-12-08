@@ -15,12 +15,15 @@ export function SubmitButton({ children }) {
             aria-disabled={pending}
             className="relative"
         >
+
             {children}
+
             {pending && (
                 <span className="animate-spin absolute right-4">
                     <LoaderIcon />
                 </span>
             )}
+
             <span aria-live="polite" className="sr-only" role="status">
                 {pending ? "Loading" : "Submit form"}
             </span>

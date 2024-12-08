@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState } from 'react';
+import { useReCaptcha } from 'next-recaptcha-v3';
+import { useActionState, useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import { AuthForm } from '@/components/custom/auth-form';
@@ -15,6 +16,29 @@ export default function Page() {
 
     const [email, setEmail] = useState('');
     const [state, formAction] = useActionState(register, { status: 'idle' });
+    const { executeRecaptcha } = useReCaptcha();
+
+    const handleSubmit = useCallback(async (e) => {
+        const form = e.target
+
+        let input = form.querySelector('input[name="recaptcha"]');
+        if (input?.value) return;
+
+        e.preventDefault();
+
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'recaptcha';
+        input.value = await executeRecaptcha("form_submit");
+
+        form.appendChild(input);
+        form.requestSubmit();
+    }, [executeRecaptcha]);
+
+    const handleAction = (formData) => {
+        setEmail(formData.get('email'));
+        formAction(formData);
+    }
 
     useEffect(() => {
         if (state.status === 'user_exists') {
@@ -29,11 +53,6 @@ export default function Page() {
         }
     }, [state, router]);
 
-    const handleSubmit = (formData) => {
-        setEmail(formData.get('email'));
-        formAction(formData);
-    };
-
     return (
         <div className="flex h-dvh w-screen items-center justify-center bg-background">
             <div className="w-full max-w-md overflow-hidden rounded-2xl gap-12 flex flex-col">
@@ -42,7 +61,7 @@ export default function Page() {
                     <p className="text-sm text-gray-500 dark:text-zinc-400">E-posta ve şifrenizle bir hesap oluşturun</p>
                 </div>
 
-                <AuthForm action={handleSubmit} defaultEmail={email}>
+                <AuthForm action={handleAction} onSubmit={handleSubmit} defaultEmail={email}>
                     <SubmitButton>Kayıt Ol</SubmitButton>
 
                     <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">

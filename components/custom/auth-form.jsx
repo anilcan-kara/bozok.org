@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
-export function AuthForm({ action, children, defaultEmail = '' }) {
+export function AuthForm({ action, children, defaultEmail = '', ...props }) {
     return (
-        <form action={action} className="flex flex-col gap-4 px-4 sm:px-16">
+        <form action={action} className="flex flex-col gap-4 px-4 sm:px-16" {...props}>
             <div className="flex flex-col gap-2">
                 <Label htmlFor="email" className="text-zinc-600 font-normal dark:text-zinc-400">
                     E-posta Adresi

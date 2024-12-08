@@ -11,8 +11,19 @@ const authFormSchema = z.object({
     password: z.string().min(6),
 });
 
+const validateToken = async (token) => {
+    if (!token) throw new Error("Invalid recaptcha token");
+    const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`, { method: "POST" })
+        .then((res) => res.json());
+    if (!response.success) throw new Error("Invalid recaptcha token");
+    return true;
+}
+
 export const login = async (_, formData) => {
     try {
+        const recaptchaToken = formData.get("recaptcha");
+        await validateToken(recaptchaToken);
+
         const validatedData = authFormSchema.parse({
             email: formData.get("email"),
             password: formData.get("password"),
@@ -36,6 +47,9 @@ export const login = async (_, formData) => {
 
 export const register = async (_, formData) => {
     try {
+        const recaptchaToken = formData.get("recaptcha");
+        await validateToken(recaptchaToken);
+
         const validatedData = authFormSchema.parse({
             email: formData.get("email"),
             password: formData.get("password"),

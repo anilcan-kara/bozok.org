@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
 import PropTypes from 'prop-types';
 import { Toaster } from 'sonner';
 
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }) {
                     <Navbar />
                     {children}
                 </ThemeProvider>
+                <GoogleAnalytics gaId="G-6VBX18H8Y7" />
             </body>
         </html>
     );
