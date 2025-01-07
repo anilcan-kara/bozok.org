@@ -46,7 +46,15 @@ export const Overview = () => {
                     >
                         Anılcan Kara
                     </Link>{' '}
-                    tarafından oluşturulmuştur.
+                    tarafından{' '}
+                    <Link
+                        className="text-blue-950/75 dark:text-blue-100 hover:underline font-semibold"
+                        href="https://avesis.bozok.edu.tr/gokalp.cinarer"
+                        target="_blank"
+                    >
+                        Dr. Gökalp Çınarer
+                    </Link>{' '}
+                    danışmanlığında oluşturulmuştur.
                 </p>
             </div>
         </motion.div>
